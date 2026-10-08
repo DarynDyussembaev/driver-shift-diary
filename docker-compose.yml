@@ -1,0 +1,29 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      # Рабочая копия данных лежит в томе и переживает пересоздание контейнера.
+      TRIPS_FILE: /data/trips.local.json
+    volumes:
+      - trips-data:/data
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+  # Второй клиент — Flutter (веб-сборка). Запуск: docker compose --profile flutter up --build
+  flutter:
+    build: ./mobile
+    profiles: ["flutter"]
+    depends_on:
+      - backend
+    ports:
+      - "8081:80"
+
+volumes:
+  trips-data:

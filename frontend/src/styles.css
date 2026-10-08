@@ -1,0 +1,305 @@
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --text: #1c1e21;
+  --muted: #6b7280;
+  --border: #e3e5e8;
+  --accent: #1f6feb;
+  --accent-text: #ffffff;
+  --cash: #1a7f37;
+  --cash-bg: #dafbe1;
+  --card: #8250df;
+  --card-bg: #f1e9ff;
+  --danger: #cf222e;
+  --danger-bg: #ffebe9;
+
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --surface: #1a1d23;
+    --text: #e6e8eb;
+    --muted: #9aa1ac;
+    --border: #2b2f37;
+    --accent: #4c8dff;
+    --cash: #56d364;
+    --cash-bg: #12301b;
+    --card: #b392f0;
+    --card-bg: #2a2140;
+    --danger: #ff7b72;
+    --danger-bg: #3d1a1c;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 {
+  margin: 0 0 20px;
+  font-size: 24px;
+}
+
+h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 8px 14px;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Выбор дня */
+
+.day-picker__row {
+  display: flex;
+  gap: 8px;
+}
+
+.day-picker__row input {
+  flex: 1;
+}
+
+.day-picker__title {
+  margin: 16px 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.day-picker__title::first-letter {
+  text-transform: uppercase;
+}
+
+.day-picker__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.chip--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+/* Сводка */
+
+.report--stale {
+  opacity: 0.5;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.card--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.card__label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.card--accent .card__label {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.card__value {
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Список поездок */
+
+.trips {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.trip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.trip + .trip {
+  border-top: 1px solid var(--border);
+}
+
+.trip__time,
+.trip__money {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.trip__time {
+  flex: 1;
+}
+
+.trip__money {
+  min-width: 130px;
+  text-align: right;
+}
+
+.trip span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.trip .badge {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.trip .badge--cash {
+  color: var(--cash);
+  background: var(--cash-bg);
+}
+
+.trip .badge--card {
+  color: var(--card);
+  background: var(--card-bg);
+}
+
+.empty {
+  margin: 0 0 24px;
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+
+/* Форма */
+
+.trip-form {
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.trip-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.trip-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.trip-form input,
+.trip-form select {
+  color: var(--text);
+  font-size: 15px;
+}
+
+.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  font-weight: 500;
+}
+
+.error {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  color: var(--danger);
+  background: var(--danger-bg);
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+@media (max-width: 520px) {
+  .summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -3,7 +3,8 @@
 Небольшое приложение: сводка и список поездок водителя за день, переключение дней, добавление поездки.
 
 - **Бэкенд** — Python, FastAPI, данные в JSON-файле.
-- **Фронтенд** — React + TypeScript, Vite.
+- **Веб-клиент** — React + TypeScript, Vite.
+- **Мобильный клиент** — Flutter (Android, iOS, веб), работает с тем же API. Подробности в [mobile/README.md](mobile/README.md).
 
 ## Как запустить
 
@@ -25,6 +26,14 @@ docker compose up --build
 ```bash
 docker compose run --rm --no-deps backend pytest
 ```
+
+Flutter-клиент в браузере (по желанию, первая сборка долгая — образ с Flutter SDK весит несколько ГБ):
+
+```bash
+docker compose --profile flutter up --build
+```
+
+Откроется на http://localhost:8081.
 
 ### Без Docker
 
@@ -132,6 +141,8 @@ pytest
 - `test_duplicates.py` — повторная отправка в разных вариантах, запись в файл, перезапуск сервера;
 - `test_validation.py` — проверка входных данных.
 
+`mobile/test` — 20 тестов Flutter-клиента: форматирование, проверка формы, работа с API, экран.
+
 ## Решения и допущения
 
 - **К какому дню относится поездка.** К локальной дате её начала, в том смещении, которое записано в самой поездке. Поездка в `00:30+05:00` относится к этому дню, хотя по UTC это ещё предыдущий.
@@ -144,7 +155,8 @@ pytest
 - Форма не умеет добавлять поездку, которая переходит через полночь (API такую примет).
 - Нет редактирования и удаления поездок, нет авторизации — один водитель.
 - JSON-файл подходит для одного процесса сервера; для нескольких нужна БД с уникальным ключом.
-- Тестов на фронтенд нет.
+- Тестов на React-клиент нет.
+- Flutter-клиент проверен анализатором, тестами и веб-сборкой; на Android и iOS не запускался.
 
 ## Структура
 
@@ -166,5 +178,16 @@ frontend/
     api.ts
     format.ts
     components/   # DayPicker, Summary, TripList, TripForm
+mobile/           # Flutter-клиент
+  lib/
+    main.dart
+    home_page.dart  # экран: выбор дня, сводка, список
+    trip_form.dart  # форма добавления
+    api.dart
+    models.dart
+    format.dart
+    validation.dart
+    widgets.dart
+  test/
 docker-compose.yml
 ```

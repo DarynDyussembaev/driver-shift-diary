@@ -1,0 +1,14 @@
+# python
+.venv/
+__pycache__/
+.pytest_cache/
+
+# рабочая копия данных, в которую пишет сервер
+backend/data/trips.local.json
+backend/data/*.tmp
+
+# node
+node_modules/
+dist/
+
+.DS_Store
